@@ -28,3 +28,11 @@ To install the Android SDK, run the container as ``root`` (see above) and the ru
 ``$ docker exec <container-id> mkdir /opt/android``
 
 ``$ docker exec <container-id> tar -C /opt/android -xzvf ./android-sdk_r23.0.2-linux.tgz``
+
+To update the Android SDK, tools, build-tools, system-images
+
+``$ docker exec <container-id>|<container-name> /bin/sh -c "( sleep 3 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/android/android-sdk-linux/android sdk update --no-ui --all"``
+
+The android tools are 32 bit and if you're on 64 bit it will not be able to find them unless you have the 32 bit emulation layers:
+
+``$ docker exec <container-id>|<container-name> /bin/sh -c "apt-get install -y lib32stdc++6 lib32z1 libc6-i386"``
